@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {list-style-type: none; text-decoration: none; padding:0; margin:0;}
+        .calculator-container {width:30%; height:500px; margin: auto; margin-top:30px;background-color: grey;}
+        .calc-screen  {width:100%; height:80px; background-color: black;}
+        .result {width:100%; height:70%; font-size: 50px; color:white; display: flex; justify-content: right; align-items: center;}
+        .calc-btn {padding:20px;font-size: 20px; border-radius:100%; background-color: white;}
+    .calculator-buttons {padding:10px; display: grid; grid-template-columns: auto auto auto auto; row-gap: 10px; column-gap: 10px;} 
+    .equalbtn {background-color: red; color:black; width:100%; grid-column-start: 1; grid-column-end:5 ; border-radius: 5px;}
+    .summary {font-size:20px; height:30%; color:white; width:100%; display: flex; justify-content: right;}
+    
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="calc-screen">
+            <div class="summary"></div>
+            <div class="result">0</div>
+
+        </div>
+        <div class="calculator-buttons">
+            <button class="calc-btn" value="7">7</button>
+            <button class="calc-btn" value="8">8</button>
+            <button class="calc-btn" value="9">9</button>
+            <button class="calc-btn" data-action="add" value="+">+</button>
+            <button class="calc-btn" value="4">4</button>
+            <button class="calc-btn" value="5">5</button>
+            <button class="calc-btn" value="6">6</button>
+            <button class="calc-btn" data-action="subtract" value="-">-</button>
+            <button class="calc-btn" value="1">1</button>
+            <button class="calc-btn" value="2">2</button>
+            <button class="calc-btn" value="4">4</button>
+            <button class="calc-btn" data-action="multiply" value="x">x</button>
+            <button class="calc-btn" value="0">0</button>
+            <button class="calc-btn" value=".">.</button>
+            <button class="calc-btn" data-action="divide" value="/">&#247</button>
+            <button class="calc-btn" data-action="clear">AC</button>
+            <button class="calc-btn equalbtn" data-action="calculate">=</button>
+            
+        </div>
+    </div>
+    <script>
+        let calcBtn = document.querySelector(".calculator-buttons")
+        let resultScreen = document.querySelector(".result");
+        let summary = document.querySelector(".summary");
+        let firstOperand;
+        let secondOperand;
+        let operator;
+        calcBtn.addEventListener("click", function(e){
+            if (e.target.matches("button")){
+                let key = e.target;
+                let keyValue = key.value;
+
+                let display = resultScreen.textContent;
+
+                let action = key.dataset.action;
+
+                console.log(action);
+
+    if (!action){
+            
+        if (display !== "0"){
+            display = display + keyValue
+        }
+            else{
+                display = keyValue;
+            }
+
+            resultScreen.textContent = display;
+            }
+else{
+
+    if (action == "add"){
+        summary.textContent = display + keyValue
+        firstOperand = display;
+        
+
+        //today
+       
+
+        resultScreen.textContent = "";
+        operator = "+";
+         //end
+    }
+
+    if (action == "subtract"){
+        summary.textContent = display + keyValue 
+
+         //today
+         firstOperand = display;
+
+        resultScreen.textContent = "";
+        operator = "-";
+        //end
+    }
+
+    if (action == "multiply"){
+        summary.textContent = display + keyValue 
+
+         //today
+         firstOperand = display;
+
+        resultScreen.textContent = "";
+        operator = "*";
+        //end
+    }
+
+    if (action == "division"){
+        summary.textContent = display + keyValue 
+
+         //today
+         firstOperand = display;
+
+            resultScreen.textContent = "";
+            operator = "/";
+         //end
+    }
+
+    if (action == "clear"){
+        resultScreen.textContent = "0"
+    }
+
+    if (action == "calculate"){
+        if (operator == "+"){
+
+        secondOperand = resultScreen.textContent;
+        summary.textContent = summary.textContent + secondOperand
+
+        resultScreen.textContent = Number(firstOperand) + Number(secondOperand)
+        }
+
+        if (operator == "-"){
+
+secondOperand = resultScreen.textContent;
+summary.textContent = summary.textContent + secondOperand
+
+resultScreen.textContent = Number(firstOperand) - Number(secondOperand)
+}
+
+if (operator == "*"){
+
+secondOperand = resultScreen.textContent;
+summary.textContent = summary.textContent + secondOperand
+
+resultScreen.textContent = Number(firstOperand) * Number(secondOperand)
+}
+
+if (operator == "/"){
+
+secondOperand = resultScreen.textContent;
+summary.textContent = summary.textContent + secondOperand
+
+resultScreen.textContent = Number(firstOperand) / Number(secondOperand)
+}
+
+    }
+}
+            }
+
+        })
+    </script>
+</body>
+</html>
